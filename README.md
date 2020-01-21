@@ -3,6 +3,16 @@ Electronic leadscrew config + UI for LinuxCNC
 
 ![UI Preview](/ElectronicLeadscrew.JPG)
 
+Parts used for this particular example:
+
+- Mesa 7i96 board
+- Clone/fake E6B2-CWZ6C Omron encoder (2880 pulses per revolution)
+- 2x DM680T stepper drivers (set to 3200 micro steps)
+- 2x NEMA23 381oz/in 3.5A Single Shaft Stepper Motor KL23H2100-35-4A
+- Mean Well NES-350-36 36V 350 Watt Switching Power Supply 110-240 Volt
+- Asus VT168H 15.6” 1366x768 HDMI VGA 10-Point Touch
+- ASRock IMB-150N Intel Celeron N2930 Dual LAN industrial Mini-ITX Server Board
+
 Simplified HAL network chart:
 
 ```
