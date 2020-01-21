@@ -3,7 +3,7 @@ Electronic leadscrew config + UI for LinuxCNC
 
 ![UI Preview](/ElectronicLeadscrew.JPG)
 
-Simplified network chart:
+Simplified HAL network chart:
 
 ```
  Machine settings:
