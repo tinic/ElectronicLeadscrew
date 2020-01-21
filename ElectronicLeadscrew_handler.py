@@ -119,6 +119,9 @@ MOVE_TYPE_TAB = "move_type_tab"
 Z_AXIS_COORD = "z_axis_coord"
 X_AXIS_COORD = "x_axis_coord"
 A_AXIS_ANGLE = "a_axis_angle"
+Z_AXIS_ZERO = "z_axis_zero"
+X_AXIS_ZERO = "x_axis_zero"
+A_AXIS_ZERO = "a_axis_zero"
 
 ############################
 # **** IMPORT SECTION **** #
@@ -201,9 +204,9 @@ class HandlerClass:
 		self.timer.start()
 
 	def timer_fired(self):
-		pos_z = self.hal_pin_position_z.get();
-		pos_x = self.hal_pin_position_x.get();
-		pos_a = (self.hal_pin_position_a.get() % 1.0) * 360.0;
+		pos_z = self.hal_pin_position_z.get() - self.z_axis_zero_offset
+		pos_x = self.hal_pin_position_x.get() - self.x_axis_zero_offset
+		pos_a = ((self.hal_pin_position_a.get() - self.a_axis_zero_offset) % 1.0) * 360.0;
 		# This is ridiculous but leading zero formatting of floating point numbers is broken in PyQt
 		if self.lathe_unit == 0:
 			pos_z_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*1000))
@@ -275,6 +278,9 @@ class HandlerClass:
 		self.widget_map[Z_AXIS_COORD] = self.w.findChild(QLabel, Z_AXIS_COORD)
 		self.widget_map[X_AXIS_COORD] = self.w.findChild(QLabel, X_AXIS_COORD)
 		self.widget_map[A_AXIS_ANGLE] = self.w.findChild(QLabel, A_AXIS_ANGLE)
+		self.widget_map[Z_AXIS_ZERO] = self.w.findChild(QPushButton, Z_AXIS_ZERO)
+		self.widget_map[X_AXIS_ZERO] = self.w.findChild(QPushButton, X_AXIS_ZERO)
+		self.widget_map[A_AXIS_ZERO] = self.w.findChild(QPushButton, A_AXIS_ZERO)
 
 	def setup_ui_signals(self):
 		self.widget_map[BUTTON_EXIT].clicked.connect(self.button_exit_clicked)
@@ -291,6 +297,9 @@ class HandlerClass:
 		self.widget_map[BUTTON_IDLE].toggled.connect(self.button_idle)
 		self.widget_map[BUTTON_REVERSE].toggled.connect(self.button_reverse)
 		self.widget_map[MOVE_TYPE_TAB].currentChanged.connect(self.move_type_changed)
+		self.widget_map[Z_AXIS_ZERO].clicked.connect(self.z_axis_zero_clicked)
+		self.widget_map[X_AXIS_ZERO].clicked.connect(self.x_axis_zero_clicked)
+		self.widget_map[A_AXIS_ZERO].clicked.connect(self.a_axis_zero_clicked)
 		for i in list(range(25)):
 			self.widget_map["value_0_{:02d}".format(i)].toggled.connect(getattr(self, "value_0_{:02d}".format(i)))
 		for i in list(range(25)):
@@ -353,6 +362,9 @@ class HandlerClass:
 		self.update_lathe_ui_hal()
 
 	def setup_initial_parameters(self):
+		self.z_axis_zero_offset = 0
+		self.x_axis_zero_offset = 0
+		self.a_axis_zero_offset = 0
 		self.lathe_idle = True
 		self.lathe_stop = True
 		self.lathe_reverse = False
@@ -485,6 +497,15 @@ class HandlerClass:
 
 	def axis_a_zero(self):
 		self.stop_now()
+
+	def z_axis_zero_clicked(self):
+		self.z_axis_zero_offset = self.hal_pin_position_z.get();
+
+	def x_axis_zero_clicked(self):
+		self.x_axis_zero_offset = self.hal_pin_position_x.get();
+
+	def a_axis_zero_clicked(self):
+		self.a_axis_zero_offset = self.hal_pin_position_a.get();
 
 	def button_exit_clicked(self):
 		self.idle_now()
