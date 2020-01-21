@@ -15,7 +15,7 @@ Parts used for this particular example:
 - Asus VT168H 15.6” 1366x768 HDMI VGA 10-Point Touch
 - ASRock IMB-150N Intel Celeron N2930 Dual LAN industrial Mini-ITX Server Board
 
-Simplified HAL network chart:
+Simplified HAL network chart (note that some required signals like enable/disable are not represented here):
 
 ```
  Machine settings:
