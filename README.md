@@ -8,7 +8,7 @@ Simplified network chart:
 ```
  Machine settings:
 
- hm2_7i96.0.encoder.00.scale          = Pulses per encoder REV (-2880)
+ hm2_7i96.0.encoder.00.scale          = Encoder pulses per REVOLUTION 
  hm2_7i96.0.stepgen.00.position-scale = Stepper pulses per MM
  hm2_7i96.0.stepgen.01.position-scale = Stepper pulses per MM
 
