@@ -206,11 +206,11 @@ class HandlerClass:
 		pos_a = (self.hal_pin_position_a.get() % 1.0) * 360.0;
 		# This is ridiculous but leading zero formatting of floating point numbers is broken in PyQt
 		if self.lathe_unit == 0:
-			pos_z_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_z >= 0 else "-",abs(int(pos_z)),abs(int((pos_z%1)*1000)))
-			pos_x_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_x <= 0 else "-",abs(int(pos_x)),abs(int((pos_x%1)*1000)))
+			pos_z_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*1000))
+			pos_x_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_x <= 0 else "-",int(abs(pos_x)),int((abs(pos_x)%1)*1000))
 		if self.lathe_unit == 1:
-			pos_z_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_z >= 0 else "-",abs(int(pos_z)),abs(int((pos_z%1)*10000)))
-			pos_x_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_x <= 0 else "-",abs(int(pos_x)),abs(int((pos_x%1)*10000)))
+			pos_z_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*10000))
+			pos_x_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_x <= 0 else "-",int(abs(pos_x)),int((abs(pos_x)%1)*10000))
 		pos_a_str = "{0:03d}.{1:02d}deg".format(abs(int(pos_a)), abs(int((pos_a%1)*100)))
 		self.widget_map[Z_AXIS_COORD].setText(pos_z_str)
 		self.widget_map[X_AXIS_COORD].setText(pos_x_str)
@@ -372,17 +372,17 @@ class HandlerClass:
 		self.lathe_forward_z = 0
 		self.lathe_forward_x = 0
 		if self.lathe_mode == 0:
-			self.lathe_forward_z = abs(LATHE_VALUES[self.lathe_unit][0][self.lathe_param_selection[self.lathe_unit][0]])
+			self.lathe_forward_z =  abs(LATHE_VALUES[self.lathe_unit][0][self.lathe_param_selection[self.lathe_unit][0]])
 			self.lathe_forward_x = 0
 		if self.lathe_mode == 1:
 			self.lathe_forward_z = 0
-			self.lathe_forward_x = abs(LATHE_VALUES[self.lathe_unit][1][self.lathe_param_selection[self.lathe_unit][1]])
+			self.lathe_forward_x = -abs(LATHE_VALUES[self.lathe_unit][1][self.lathe_param_selection[self.lathe_unit][1]])
 		if self.lathe_mode == 2:
 			self.lathe_forward_z = 0
 			self.lathe_forward_x = 0
 		if self.lathe_reverse == False:
-			self.lathe_forward_z = -abs(self.lathe_forward_z)
-			self.lathe_forward_x = -abs(self.lathe_forward_x)
+			self.lathe_forward_z = -(self.lathe_forward_z)
+			self.lathe_forward_x = -(self.lathe_forward_x)
 		self.update_lathe_ui_hal()
 
 	def setup_parameters_for_selection(self, page, which):
