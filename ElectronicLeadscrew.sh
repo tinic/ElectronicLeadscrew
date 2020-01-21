@@ -6,7 +6,7 @@ export QT_QPA_FONTDIR=/usr/lib/fonts
 export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/plugins/platforms
 
 # Make sure you set this to your touch point device, could be anything from event0 to event5
-# AND also make sure that the local user has permission for this device. Usually you can
+# AND also make sure that the local user has permission for this device. Usually you can add
 # the user to the input group. Google "/dev/input/event0 permissions" if you have issues.
 export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event3
 
