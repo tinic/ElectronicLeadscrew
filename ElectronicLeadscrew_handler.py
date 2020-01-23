@@ -342,7 +342,6 @@ class HandlerClass:
 		self.update_lathe_ui_hal()
 
 	def forward(self):
-		self.stop_now()
 		widget = self.widget_map[BUTTON_REVERSE]
 		widget.blockSignals(True)
 		widget.setChecked(False)
@@ -352,7 +351,6 @@ class HandlerClass:
 		self.update_lathe_ui_hal()
 
 	def reverse(self):
-		self.stop_now()
 		widget = self.widget_map[BUTTON_REVERSE]
 		widget.blockSignals(True)
 		widget.setChecked(True)
@@ -380,7 +378,6 @@ class HandlerClass:
 		self.setup_machine_parameters()
 	
 	def setup_machine_parameters(self):
-		self.stop_now()
 		self.lathe_forward_z = 0
 		self.lathe_forward_x = 0
 		if self.lathe_mode == 0:
@@ -426,7 +423,6 @@ class HandlerClass:
 			widget.blockSignals(False)
 
 	def set_checked_for_page_0(self, which):
-		self.stop_now()
 		for i in list(range(25)):
 			widget = self.widget_map["value_0_{:02d}".format(i)]
 			widget.blockSignals(True)
@@ -489,15 +485,6 @@ class HandlerClass:
 		else:
 			self.forward()
 	
-	def axis_z_zero(self):
-		self.stop_now()
-
-	def axis_x_zero(self):
-		self.stop_now()
-
-	def axis_a_zero(self):
-		self.stop_now()
-
 	def z_axis_zero_clicked(self):
 		self.z_axis_zero_offset = self.hal_pin_position_z.get();
 
