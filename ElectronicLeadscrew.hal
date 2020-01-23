@@ -134,6 +134,11 @@ net z-forward => scale.1.gain
 net z-offset-stepper <= lathe_ui.offset_z_stepper
 net z-offset-stepper => scale.2.offset
 
+net z-control-type <= lathe_ui.control_z_type
+net z-control-type => hm2_7i96.0.stepgen.00.control-type
+net z-velocity-cmd <= lathe_ui.velocity_z_cmd
+net z-velocity-cmd => hm2_7i96.0.stepgen.00.velocity-cmd
+
 # X Axis -- scale chain
 net scale3_to_4 <= scale.3.out
 net scale3_to_4 => scale.4.in
@@ -148,6 +153,11 @@ net x-forward <= lathe_ui.forward_x
 net x-forward => scale.4.gain
 net x-offset-stepper <= lathe_ui.offset_x_stepper
 net x-offset-stepper => scale.5.offset
+
+net x-control-type <= lathe_ui.control_x_type
+net x-control-type => hm2_7i96.0.stepgen.01.control-type
+net x-velocity-cmd <= lathe_ui.velocity_x_cmd
+net x-velocity-cmd => hm2_7i96.0.stepgen.01.velocity-cmd
 
 start
 

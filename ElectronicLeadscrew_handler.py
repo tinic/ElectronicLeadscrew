@@ -186,6 +186,7 @@ class HandlerClass:
 		self.setup_initial_parameters()
 		self.setup_initial_ui_state()
 		self.setup_ui_signals()
+		self.disable_enable_move_buttons()
 		self.hal.ready()
 		self.setup_timer()
 
@@ -235,6 +236,10 @@ class HandlerClass:
 		self.hal_pin_offset_z_stepper = self.hal.newpin("offset_z_stepper", hal.HAL_FLOAT, hal.HAL_OUT)
 		self.hal_pin_offset_x_encoder = self.hal.newpin("offset_x_encoder", hal.HAL_FLOAT, hal.HAL_OUT)
 		self.hal_pin_offset_x_stepper = self.hal.newpin("offset_x_stepper", hal.HAL_FLOAT, hal.HAL_OUT)
+		self.hal_pin_control_z_type = self.hal.newpin("control_z_type", hal.HAL_BIT, hal.HAL_OUT)
+		self.hal_pin_control_x_type = self.hal.newpin("control_x_type", hal.HAL_BIT, hal.HAL_OUT)
+		self.hal_pin_velocity_z_cmd = self.hal.newpin("velocity_z_cmd", hal.HAL_FLOAT, hal.HAL_OUT)
+		self.hal_pin_velocity_x_cmd = self.hal.newpin("velocity_x_cmd", hal.HAL_FLOAT, hal.HAL_OUT)
 
 	def update_lathe_ui_hal(self):
 		if self.lathe_stop:
@@ -314,6 +319,7 @@ class HandlerClass:
 		widget.setChecked(True)
 		widget.blockSignals(False)
 		self.lathe_stop = True
+		self.disable_enable_move_buttons()
 		self.update_lathe_ui_hal()
 
 	def run_now(self):
@@ -323,6 +329,7 @@ class HandlerClass:
 		widget.setChecked(False)
 		widget.blockSignals(False)
 		self.lathe_stop = False
+		self.disable_enable_move_buttons()
 		self.update_lathe_ui_hal()
 
 	def idle_now(self):
@@ -332,6 +339,7 @@ class HandlerClass:
 		widget.setChecked(True)
 		widget.blockSignals(False)
 		self.lathe_idle = True
+		self.disable_enable_move_buttons()
 		self.update_lathe_ui_hal()
 
 	def engage_now(self):
@@ -340,6 +348,7 @@ class HandlerClass:
 		widget.setChecked(False)
 		widget.blockSignals(False)
 		self.lathe_idle = False
+		self.disable_enable_move_buttons()
 		self.update_lathe_ui_hal()
 
 	def forward(self):
@@ -405,6 +414,21 @@ class HandlerClass:
 		self.set_checked_for_page_0(self.lathe_param_selection[self.lathe_unit][0])
 		self.set_checked_for_page_1(self.lathe_param_selection[self.lathe_unit][1])
 		self.set_checked_for_page_2(self.lathe_param_selection[self.lathe_unit][2])
+
+	def disable_enable_move_buttons(self):
+		if self.lathe_mode == 0 and not self.lathe_idle and self.lathe_stop:
+			self.widget_map[BUTTON_LEFT].setEnabled(True)
+			self.widget_map[BUTTON_RIGHT].setEnabled(True)
+		else:
+			self.widget_map[BUTTON_LEFT].setEnabled(False)
+			self.widget_map[BUTTON_RIGHT].setEnabled(False)
+		if self.lathe_mode == 1 and not self.lathe_idle and self.lathe_stop:
+			self.widget_map[BUTTON_UP].setEnabled(True)
+			self.widget_map[BUTTON_DOWN].setEnabled(True)
+		else:
+			self.widget_map[BUTTON_UP].setEnabled(False)
+			self.widget_map[BUTTON_DOWN].setEnabled(False)
+		
 	
 	def populate_labels(self):
 		for i in list(range(25)):
@@ -466,6 +490,7 @@ class HandlerClass:
 	def move_type_changed(self, which):
 		self.stop_now()
 		self.lathe_mode = which
+		self.disable_enable_move_buttons()
 		self.setup_machine_parameters()
 
 	def button_stop(self, state):
@@ -511,36 +536,72 @@ class HandlerClass:
 		self.setup_machine_parameters()
 
 	def button_left_pressed(self):
-		self.stop_now()
-		ACTION.JOG(1, -1, STATUS.get_jograte(), STATUS.get_jog_increment())
+		if self.lathe_mode == 1:
+			return
+		if not self.lathe_stop or self.lathe_idle:
+			return
+		self.hal_pin_enable_stepper_z.set(True)
+		self.hal_pin_control_z_type.set(1)
+		self.hal_pin_velocity_z_cmd.set(-2)
 
 	def button_left_released(self):
-		self.stop_now()
-		ACTION.JOG(1, 0, 0, 0)
+		if self.lathe_mode == 1:
+			return
+		self.hal_pin_velocity_z_cmd.set(0)
+		self.hal_pin_control_z_type.set(0)
+		self.hal_pin_enable_stepper_z.set(False)
 
 	def button_right_pressed(self):
-		self.stop_now()
-		ACTION.JOG(1, +1, STATUS.get_jograte(), STATUS.get_jog_increment())
+		if self.lathe_mode == 1:
+			return
+		if not self.lathe_stop or self.lathe_idle:
+			return
+		self.hal_pin_enable_stepper_z.set(True)
+		self.hal_pin_control_z_type.set(1)
+		self.hal_pin_velocity_z_cmd.set(+2);
 
 	def button_right_released(self):
-		self.stop_now()
-		ACTION.JOG(1, 0, 0, 0)
+		if self.lathe_mode == 1:
+			return
+		self.hal_pin_velocity_z_cmd.set(0)
+		self.hal_pin_control_z_type.set(0)
+		self.hal_pin_enable_stepper_z.set(False)
 
 	def button_up_pressed(self):
-		self.stop_now()
-		ACTION.JOG(1, -1, STATUS.get_jograte(), STATUS.get_jog_increment())
+		if self.lathe_mode == 0:
+			return
+		if not self.lathe_stop or self.lathe_idle:
+			return
+		self.hal_pin_enable_stepper_x.set(True)
+		if self.lathe_mode != 1:
+			self.hal_pin_enable_x.set(True)
+		self.hal_pin_control_x_type.set(1)
+		self.hal_pin_velocity_x_cmd.set(+1);
 
 	def button_up_released(self):
-		self.stop_now()
-		ACTION.JOG(1, 0, 0, 0)
+		if self.lathe_mode == 0:
+			return
+		self.hal_pin_velocity_x_cmd.set(0);
+		self.hal_pin_control_x_type.set(0)
+		if self.lathe_mode != 1:
+			self.hal_pin_enable_x.set(False)
+		self.hal_pin_enable_stepper_x.set(False)
 
 	def button_down_pressed(self):
-		self.stop_now()
-		ACTION.JOG(1, +1, STATUS.get_jograte(), STATUS.get_jog_increment())
+		if self.lathe_mode == 0:
+			return
+		if not self.lathe_stop or self.lathe_idle:
+			return
+		self.hal_pin_enable_stepper_x.set(True)
+		self.hal_pin_control_x_type.set(1)
+		self.hal_pin_velocity_x_cmd.set(-1);
 
 	def button_down_released(self):
-		self.stop_now()
-		ACTION.JOG(1, 0, 0, 0)
+		if self.lathe_mode == 0:
+			return
+		self.hal_pin_velocity_x_cmd.set(0);
+		self.hal_pin_control_x_type.set(0)
+		self.hal_pin_enable_stepper_x.set(False)
 		
 	def value_0_00(self, state):
 		self.set_checked_for_page_0(0)
