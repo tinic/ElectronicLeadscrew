@@ -131,6 +131,7 @@ import sys
 import os
 import linuxcnc
 import hal
+import math
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QTimer
@@ -381,14 +382,14 @@ class HandlerClass:
 		self.lathe_forward_z = 0
 		self.lathe_forward_x = 0
 		if self.lathe_mode == 0:
-			self.lathe_forward_z =  abs(LATHE_VALUES[self.lathe_unit][0][self.lathe_param_selection[self.lathe_unit][0]])
+			self.lathe_forward_z = abs(LATHE_VALUES[self.lathe_unit][0][self.lathe_param_selection[self.lathe_unit][0]])
 			self.lathe_forward_x = 0
 		if self.lathe_mode == 1:
 			self.lathe_forward_z = 0
 			self.lathe_forward_x = -abs(LATHE_VALUES[self.lathe_unit][1][self.lathe_param_selection[self.lathe_unit][1]])
 		if self.lathe_mode == 2:
-			self.lathe_forward_z = 0
-			self.lathe_forward_x = 0
+			self.lathe_forward_z = abs(LATHE_VALUES[self.lathe_unit][0][self.lathe_param_selection[self.lathe_unit][0]])
+			self.lathe_forward_x = self.lathe_forward_z * math.tan(math.radians(LATHE_VALUES[self.lathe_unit][2][self.lathe_param_selection[self.lathe_unit][2]]))
 		if self.lathe_reverse == False:
 			self.lathe_forward_z = -(self.lathe_forward_z)
 			self.lathe_forward_x = -(self.lathe_forward_x)
