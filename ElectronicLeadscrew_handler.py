@@ -132,6 +132,7 @@ import os
 import linuxcnc
 import hal
 import math
+import time
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QTimer
@@ -206,6 +207,22 @@ class HandlerClass:
 		self.timer.start()
 
 	def timer_fired(self):
+		if (self.br_time > 0):
+			velocity = (time.time() - self.br_time) * 3
+			velocity = min(velocity, 6.0)
+			self.hal_pin_velocity_z_cmd.set(+velocity);
+		if (self.bl_time > 0):
+			velocity = (time.time() - self.bl_time) * 3
+			velocity = min(velocity, 6.0)
+			self.hal_pin_velocity_z_cmd.set(-velocity);
+		if (self.bu_time > 0):
+			velocity = (time.time() - self.bu_time) * 3
+			velocity = min(velocity, 3.0)
+			self.hal_pin_velocity_x_cmd.set(+velocity);
+		if (self.bd_time > 0):
+			velocity = (time.time() - self.bd_time) * 3
+			velocity = min(velocity, 3.0)
+			self.hal_pin_velocity_x_cmd.set(-velocity);
 		pos_z = self.hal_pin_position_z.get() - self.z_axis_zero_offset
 		pos_x = self.hal_pin_position_x.get() - self.x_axis_zero_offset
 		pos_a = ((self.hal_pin_position_a.get() - self.a_axis_zero_offset) % 1.0) * 360.0;
@@ -370,6 +387,10 @@ class HandlerClass:
 		self.update_lathe_ui_hal()
 
 	def setup_initial_parameters(self):
+		self.br_time = 0;
+		self.bl_time = 0;
+		self.bu_time = 0;
+		self.bd_time = 0;
 		self.z_axis_zero_offset = 0
 		self.x_axis_zero_offset = 0
 		self.a_axis_zero_offset = 0
@@ -540,13 +561,15 @@ class HandlerClass:
 			return
 		if not self.lathe_stop or self.lathe_idle:
 			return
+		self.bl_time = time.time();
 		self.hal_pin_enable_stepper_z.set(True)
 		self.hal_pin_control_z_type.set(1)
-		self.hal_pin_velocity_z_cmd.set(-2)
+		self.hal_pin_velocity_z_cmd.set(0)
 
 	def button_left_released(self):
 		if self.lathe_mode == 1:
 			return
+		self.bl_time = 0;
 		self.hal_pin_velocity_z_cmd.set(0)
 		self.hal_pin_control_z_type.set(0)
 		self.hal_pin_enable_stepper_z.set(False)
@@ -556,13 +579,15 @@ class HandlerClass:
 			return
 		if not self.lathe_stop or self.lathe_idle:
 			return
+		self.br_time = time.time();
 		self.hal_pin_enable_stepper_z.set(True)
 		self.hal_pin_control_z_type.set(1)
-		self.hal_pin_velocity_z_cmd.set(+2);
+		self.hal_pin_velocity_z_cmd.set(0);
 
 	def button_right_released(self):
 		if self.lathe_mode == 1:
 			return
+		self.br_time = 0;
 		self.hal_pin_velocity_z_cmd.set(0)
 		self.hal_pin_control_z_type.set(0)
 		self.hal_pin_enable_stepper_z.set(False)
@@ -572,15 +597,17 @@ class HandlerClass:
 			return
 		if not self.lathe_stop or self.lathe_idle:
 			return
+		self.bu_time = time.time();
 		self.hal_pin_enable_stepper_x.set(True)
 		if self.lathe_mode != 1:
 			self.hal_pin_enable_x.set(True)
 		self.hal_pin_control_x_type.set(1)
-		self.hal_pin_velocity_x_cmd.set(+1);
+		self.hal_pin_velocity_x_cmd.set(0);
 
 	def button_up_released(self):
 		if self.lathe_mode == 0:
 			return
+		self.bu_time = 0;
 		self.hal_pin_velocity_x_cmd.set(0);
 		self.hal_pin_control_x_type.set(0)
 		if self.lathe_mode != 1:
@@ -592,13 +619,15 @@ class HandlerClass:
 			return
 		if not self.lathe_stop or self.lathe_idle:
 			return
+		self.bd_time = time.time();
 		self.hal_pin_enable_stepper_x.set(True)
 		self.hal_pin_control_x_type.set(1)
-		self.hal_pin_velocity_x_cmd.set(-1);
+		self.hal_pin_velocity_x_cmd.set(0);
 
 	def button_down_released(self):
 		if self.lathe_mode == 0:
 			return
+		self.bd_time = 0;
 		self.hal_pin_velocity_x_cmd.set(0);
 		self.hal_pin_control_x_type.set(0)
 		self.hal_pin_enable_stepper_x.set(False)
