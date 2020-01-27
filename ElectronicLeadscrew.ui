@@ -51,7 +51,14 @@ QTabBar::tab {
 	font-size: 42px;
 	font-weight: 600;
 }
- QTabBar::tab:selected {
+QTabWidget::tab-bar {
+	alignment:center;
+}
+QTabWidget::pane {
+	border: 0px;
+	padding: 0px;
+}
+QTabBar::tab:selected {
 	color: white;
 	background: qlineargradient( x1:0 y1:0, x2:0 y2:1, stop:0 dimgray, stop:1 grey);
 }
@@ -105,10 +112,28 @@ QPushButton:disabled {
           <string>⬄</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
           <item>
            <layout class="QGridLayout" name="value_grid_00" rowstretch="1,1,1,1,1" columnstretch="1,1,1,1,1" columnminimumwidth="100,100,100,100,100">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="spacing">
+             <number>8</number>
             </property>
             <item row="0" column="1">
              <widget class="QPushButton" name="value_0_01">
@@ -519,10 +544,28 @@ QPushButton:disabled {
           <string>⇳</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
           <item>
            <layout class="QGridLayout" name="value_grid_01" rowstretch="1,1,1,1,1" columnstretch="1,1,1,1,1" columnminimumwidth="100,100,100,100,100">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="spacing">
+             <number>8</number>
             </property>
             <item row="0" column="1">
              <widget class="QPushButton" name="value_1_01">
@@ -933,10 +976,28 @@ QPushButton:disabled {
           <string>∠</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_40">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
           <item>
            <layout class="QGridLayout" name="value_grid_02" rowstretch="1,1,1,1,1" columnstretch="1,1,1,1,1" columnminimumwidth="100,100,100,100,100">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="spacing">
+             <number>8</number>
             </property>
             <item row="0" column="1">
              <widget class="QPushButton" name="value_2_01">
@@ -1348,6 +1409,18 @@ QPushButton:disabled {
        <layout class="QVBoxLayout" name="right_vertical_box">
         <item>
          <layout class="QGridLayout" name="coord_grid">
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
           <item row="0" column="1">
            <widget class="QLabel" name="z_axis_coord">
             <property name="sizePolicy">
@@ -1463,6 +1536,21 @@ QPushButton:disabled {
         </item>
         <item>
          <layout class="QGridLayout" name="button_grid">
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
+          <property name="spacing">
+           <number>8</number>
+          </property>
           <item row="0" column="1">
            <widget class="QPushButton" name="button_up">
             <property name="sizePolicy">
