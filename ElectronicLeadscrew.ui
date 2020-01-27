@@ -69,7 +69,7 @@ QPushButton {
 	border-width: 2px;
 	border-radius: 8px;
 	font-family: 'DejaVu Sans', sans-serif;
-	font-size: 32px;
+	font-size: 26px;
 	font-weight: 600;
 }
 QPushButton:checked {
@@ -1559,6 +1559,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 42pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>⬆</string>
             </property>
@@ -1572,6 +1575,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 42pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>⬇</string>
             </property>
@@ -1584,6 +1590,9 @@ QPushButton:disabled {
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 32pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
              <string>STOP</string>
@@ -1601,6 +1610,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 32pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>REV</string>
             </property>
@@ -1617,6 +1629,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 42pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>⬅</string>
             </property>
@@ -1630,6 +1645,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 32pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>mm</string>
             </property>
@@ -1642,6 +1660,9 @@ QPushButton:disabled {
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 32pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
              <string>IDLE</string>
@@ -1659,6 +1680,9 @@ QPushButton:disabled {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 32pt &quot;DejaVu Sans&quot;;</string>
+            </property>
             <property name="text">
              <string>EXIT</string>
             </property>
@@ -1674,6 +1698,9 @@ QPushButton:disabled {
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 900 42pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
              <string>➡</string>
