@@ -122,6 +122,7 @@ A_AXIS_ANGLE = "a_axis_angle"
 Z_AXIS_ZERO = "z_axis_zero"
 X_AXIS_ZERO = "x_axis_zero"
 A_AXIS_ZERO = "a_axis_zero"
+R_RPM_VALUE = "r_rpm_value"
 
 ############################
 # **** IMPORT SECTION **** #
@@ -234,15 +235,19 @@ class HandlerClass:
 			pos_z_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*10000))
 			pos_x_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_x <= 0 else "-",int(abs(pos_x)),int((abs(pos_x)%1)*10000))
 		pos_a_str = "{0:03d}.{1:02d}deg".format(abs(int(pos_a)), abs(int((pos_a%1)*100)))
+		r_rpm = self.hal_pin_speed_rps.get() * 60
+		r_rpm_str = "{0:04d}rpm".format(int(r_rpm))
 		self.widget_map[Z_AXIS_COORD].setText(pos_z_str)
 		self.widget_map[X_AXIS_COORD].setText(pos_x_str)
 		self.widget_map[A_AXIS_ANGLE].setText(pos_a_str)
+		self.widget_map[R_RPM_VALUE].setText(r_rpm_str)
 
 	def setup_lathe_ui_hal(self):
 		self.hal = hal.component("lathe_ui")
 		self.hal_pin_position_z = self.hal.newpin("position_z", hal.HAL_FLOAT, hal.HAL_IN)
 		self.hal_pin_position_x = self.hal.newpin("position_x", hal.HAL_FLOAT, hal.HAL_IN)
 		self.hal_pin_position_a = self.hal.newpin("position_a", hal.HAL_FLOAT, hal.HAL_IN)
+		self.hal_pin_speed_rps = self.hal.newpin("speed_rps", hal.HAL_FLOAT, hal.HAL_IN)
 		self.hal_pin_forward_z = self.hal.newpin("forward_z", hal.HAL_FLOAT, hal.HAL_OUT)
 		self.hal_pin_forward_x = self.hal.newpin("forward_x", hal.HAL_FLOAT, hal.HAL_OUT)
 		self.hal_pin_enable_z = self.hal.newpin("enable_z", hal.HAL_BIT, hal.HAL_OUT)
@@ -304,6 +309,7 @@ class HandlerClass:
 		self.widget_map[Z_AXIS_ZERO] = self.w.findChild(QPushButton, Z_AXIS_ZERO)
 		self.widget_map[X_AXIS_ZERO] = self.w.findChild(QPushButton, X_AXIS_ZERO)
 		self.widget_map[A_AXIS_ZERO] = self.w.findChild(QPushButton, A_AXIS_ZERO)
+		self.widget_map[R_RPM_VALUE] = self.w.findChild(QLabel, R_RPM_VALUE)
 
 	def setup_ui_signals(self):
 		self.widget_map[BUTTON_EXIT].clicked.connect(self.button_exit_clicked)
