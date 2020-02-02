@@ -455,7 +455,11 @@ class HandlerClass:
 		else:
 			self.widget_map[BUTTON_UP].setEnabled(False)
 			self.widget_map[BUTTON_DOWN].setEnabled(False)
-		
+		if self.lathe_mode == 2 and not self.lathe_idle and self.lathe_stop:
+			self.widget_map[BUTTON_UP].setEnabled(True)
+			self.widget_map[BUTTON_DOWN].setEnabled(True)
+			self.widget_map[BUTTON_LEFT].setEnabled(True)
+			self.widget_map[BUTTON_RIGHT].setEnabled(True)		
 	
 	def populate_labels(self):
 		for i in list(range(25)):
