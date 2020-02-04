@@ -232,8 +232,8 @@ class HandlerClass:
 			pos_z_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*1000))
 			pos_x_str = "{0:s}{1:04d}.{2:03d}mm".format("+" if pos_x <= 0 else "-",int(abs(pos_x)),int((abs(pos_x)%1)*1000))
 		if self.lathe_unit == 1:
-			pos_z_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_z >= 0 else "-",int(abs(pos_z)),int((abs(pos_z)%1)*10000))
-			pos_x_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_x <= 0 else "-",int(abs(pos_x)),int((abs(pos_x)%1)*10000))
+			pos_z_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_z >= 0 else "-",int(abs(pos_z/25.4)),int((abs(pos_z/25.4)%1)*10000))
+			pos_x_str = "{0:s}{1:03d}.{2:04d}in".format("+" if pos_x <= 0 else "-",int(abs(pos_x/25.4)),int((abs(pos_x/25.4)%1)*10000))
 		pos_a_str = "{0:03d}.{1:02d}deg".format(abs(int(pos_a)), abs(int((pos_a%1)*100)))
 		r_rpm = self.hal_pin_speed_rps.get() * 60
 		r_rpm_str = "{0:04d}rpm".format(int(r_rpm))
