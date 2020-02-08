@@ -443,23 +443,39 @@ class HandlerClass:
 		self.set_checked_for_page_2(self.lathe_param_selection[self.lathe_unit][2])
 
 	def disable_enable_move_buttons(self):
-		if self.lathe_mode == 0 and not self.lathe_idle and self.lathe_stop:
-			self.widget_map[BUTTON_LEFT].setEnabled(True)
-			self.widget_map[BUTTON_RIGHT].setEnabled(True)
-		else:
-			self.widget_map[BUTTON_LEFT].setEnabled(False)
-			self.widget_map[BUTTON_RIGHT].setEnabled(False)
-		if self.lathe_mode == 1 and not self.lathe_idle and self.lathe_stop:
-			self.widget_map[BUTTON_UP].setEnabled(True)
-			self.widget_map[BUTTON_DOWN].setEnabled(True)
-		else:
-			self.widget_map[BUTTON_UP].setEnabled(False)
-			self.widget_map[BUTTON_DOWN].setEnabled(False)
-		if self.lathe_mode == 2 and not self.lathe_idle and self.lathe_stop:
-			self.widget_map[BUTTON_UP].setEnabled(True)
-			self.widget_map[BUTTON_DOWN].setEnabled(True)
-			self.widget_map[BUTTON_LEFT].setEnabled(True)
-			self.widget_map[BUTTON_RIGHT].setEnabled(True)		
+		if self.lathe_mode == 0:
+			if not self.lathe_idle and self.lathe_stop:
+				self.widget_map[BUTTON_LEFT].setEnabled(True)
+				self.widget_map[BUTTON_RIGHT].setEnabled(True)
+				self.widget_map[BUTTON_UP].setEnabled(False)
+				self.widget_map[BUTTON_DOWN].setEnabled(False)
+			else:
+				self.widget_map[BUTTON_LEFT].setEnabled(False)
+				self.widget_map[BUTTON_RIGHT].setEnabled(False)
+				self.widget_map[BUTTON_UP].setEnabled(False)
+				self.widget_map[BUTTON_DOWN].setEnabled(False)
+		if self.lathe_mode == 1:
+			if not self.lathe_idle and self.lathe_stop:
+				self.widget_map[BUTTON_LEFT].setEnabled(False)
+				self.widget_map[BUTTON_RIGHT].setEnabled(False)
+				self.widget_map[BUTTON_UP].setEnabled(True)
+				self.widget_map[BUTTON_DOWN].setEnabled(True)
+			else:
+				self.widget_map[BUTTON_LEFT].setEnabled(False)
+				self.widget_map[BUTTON_RIGHT].setEnabled(False)
+				self.widget_map[BUTTON_UP].setEnabled(False)
+				self.widget_map[BUTTON_DOWN].setEnabled(False)
+		if self.lathe_mode == 2:
+			if not self.lathe_idle and self.lathe_stop:
+				self.widget_map[BUTTON_LEFT].setEnabled(True)
+				self.widget_map[BUTTON_RIGHT].setEnabled(True)		
+				self.widget_map[BUTTON_UP].setEnabled(True)
+				self.widget_map[BUTTON_DOWN].setEnabled(True)
+			else:
+				self.widget_map[BUTTON_LEFT].setEnabled(False)
+				self.widget_map[BUTTON_RIGHT].setEnabled(False)
+				self.widget_map[BUTTON_UP].setEnabled(False)
+				self.widget_map[BUTTON_DOWN].setEnabled(False)
 	
 	def populate_labels(self):
 		for i in list(range(25)):
