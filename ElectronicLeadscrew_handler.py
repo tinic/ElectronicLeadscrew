@@ -400,14 +400,14 @@ class HandlerClass:
 		self.z_axis_zero_offset = 0
 		self.x_axis_zero_offset = 0
 		self.a_axis_zero_offset = 0
-		self.lathe_idle = True
-		self.lathe_stop = True
+		self.lathe_idle = False
+		self.lathe_stop = False
 		self.lathe_reverse = False
 		self.lathe_forward_z = 0
 		self.lathe_forward_x = 0
 		self.lathe_mode = 0
 		self.lathe_unit = 0
-		self.idle_now()
+		self.run_now()
 		self.lathe_param_selection = [
 			[4, 3, 8],
 			[4, 3, 8]
