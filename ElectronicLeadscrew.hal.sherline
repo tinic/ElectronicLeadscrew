@@ -20,7 +20,7 @@ setp scale.5.gain 1
 ## hostmot2 and 7i76e specific
 
 loadrt hostmot2
-loadrt hm2_eth board_ip="10.10.10.10" config=" num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=00xxxx"
+loadrt hm2_eth board_ip="10.10.10.10" config=" num_encoders=1 num_pwmgens=0 num_stepgens=5"
 
 setp hm2_7i76e.0.watchdog.timeout_ns 5000000
 
@@ -28,7 +28,7 @@ setp hm2_7i76e.0.watchdog.timeout_ns 5000000
 
 # This needs to be set to the number of pulses per revolution the encoder does output
 # The sign should represent rotation in regular counter clockwise mode
-setp hm2_7i76e.0.encoder.00.scale -2000
+setp hm2_7i76e.0.encoder.00.scale -8000
 setp hm2_7i76e.0.encoder.00.counter-mode 0 ## A/B mode
 setp hm2_7i76e.0.encoder.00.filter 1
 
