@@ -13,7 +13,7 @@ export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event3
 # For debugging you proabably want to comment this out as this forces full screen
 # mode and disables the mouse.
 # But note that was the only way I could get touch points to work on my system.
-export QT_QPA_PLATFORM=eglfs
+#export QT_QPA_PLATFORM=eglfs
 
 #export QT_LOGGING_RULES=qt.qpa.input=true
 export QT_QPA_EGLFS_TSLIB=1
