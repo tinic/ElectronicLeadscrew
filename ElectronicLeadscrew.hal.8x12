@@ -82,7 +82,7 @@ addf hm2_7i96.0.write servo-thread
 
 ###############################################
 ## load UI and make connections
-loadusr -Wn ElectronicLeadscrew qtvcp -d -c ElectronicLeadscrew ElectronicLeadscrew.ui
+loadusr -Wn ElectronicLeadscrew qtvcp -m -d -c ElectronicLeadscrew ElectronicLeadscrew.ui
 
 net r-rps <= hm2_7i96.0.encoder.00.velocity
 net r-rps => lathe_ui.speed_rps

@@ -19,4 +19,3 @@ export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event3
 export QT_QPA_EGLFS_TSLIB=1
 
 halrun ElectronicLeadscrew.hal
-
