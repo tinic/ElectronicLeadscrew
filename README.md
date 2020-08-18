@@ -5,6 +5,8 @@ Background: Many hobbyists convert their manual lathe to function as a CNC machi
 
 Please note that for this to function you have to wire up the enable/disable signal on your stepper drivers, which is usually not required for pure CNC operation.
 
+Debian packages required: python-dbus python-xlib python-pyqt5 python-pyqt5.qsci
+
 ![UI Preview](/ElectronicLeadscrew.JPG)
 
 Parts used for this particular example:
