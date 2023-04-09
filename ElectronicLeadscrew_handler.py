@@ -518,7 +518,7 @@ class HandlerClass:
 					widget.setChecked(True)
 			widget.blockSignals(False)
    
-   	def set_checked_for_page_2(self, which):
+	def set_checked_for_page_2(self, which):
 		for i in list(range(25)):
 			widget = self.widget_map["value_2_{:02d}".format(i)]
 			widget.blockSignals(True)
