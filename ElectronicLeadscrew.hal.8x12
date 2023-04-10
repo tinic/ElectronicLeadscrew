@@ -22,7 +22,7 @@ setp scale.5.gain 1
 loadrt hostmot2
 loadrt hm2_eth board_ip="10.10.10.10" config=" num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=00xxxx"
 
-setp hm2_7i96.0.watchdog.timeout_ns 5000000
+setp hm2_7i96.0.watchdog.timeout_ns 100000000
 
 ## A Axis encoder setup
 
