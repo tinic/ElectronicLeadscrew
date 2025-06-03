@@ -1,4 +1,8 @@
 # ElectronicLeadscrew
+
+> [!NOTE]
+> A modernized version of this project is available [here](https://github.com/tinic/el-linuxcnc-electron).
+
 This is a standalone electronic leadscrew HAL configuration + Qt based UI for lathes. It essentially brings back manual control to lathes which have been converted to CNC.
 
 Background: Many hobbyists convert their manual lathe to function as a CNC machine but do not want to lose the ability to use the machine in manual mode. This configuration make this possible. LinuxCNC in this case operates like a gearbox with a few additional features.
